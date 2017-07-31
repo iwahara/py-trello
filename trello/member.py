@@ -31,6 +31,7 @@ class Member(TrelloBase):
         self.username = json_obj['username']
         self.full_name = json_obj['fullName']
         self.initials = json_obj['initials']
+        self.email = json_obj.get('email', '')
         return self
 
     def fetch_comments(self):
@@ -67,6 +68,7 @@ class Member(TrelloBase):
         member = Member(trello_client, json_obj['id'], full_name=json_obj['fullName'])
         member.username = json_obj.get('username', '')
         member.initials = json_obj.get('initials', '')
+        member.email = json_obj.get('email', '')
         # cannot close an organization
         # organization.closed = json_obj['closed']
         return member
