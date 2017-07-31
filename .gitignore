@@ -11,3 +11,4 @@ dist
 .tox/
 .DS_Store
 example
+.python-version
