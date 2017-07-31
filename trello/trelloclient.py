@@ -270,7 +270,7 @@ class TrelloClient(object):
         else:
             return False
 
-    def search_members(self, query, limit=None, idBoard=None,
+    def search_members(self, query, limit=8, idBoard=None,
                 idOrganization=None, onlyOrgMembers=False):
         """
         Search for Trello members.
