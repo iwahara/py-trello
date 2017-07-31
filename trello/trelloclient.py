@@ -304,7 +304,7 @@ class TrelloClient(object):
 
         results = []
         for item in json_obj:
-            results.appKey(Member.from_json(item))
+            results.append(Member.from_json(item))
 
         return results
 
