@@ -270,6 +270,45 @@ class TrelloClient(object):
         else:
             return False
 
+    def search_members(self, query, limit=None, idBoard=None,
+                idOrganization=None, onlyOrgMembers=False):
+        """
+        Search for Trello members.
+
+        :param str query: A query string up to 16K characters
+        :param int limit: The maximum number of results to return. Maximum of 20.
+        :param str idBoard: (don't work parameter)
+        :param str idOrganization: if onlyOrgMembers is True, search member to this id.
+        :param bool onlyOrgMembers: if True, only organization member.
+
+        :return: All members matching the search.
+        :rtype list:
+        """
+
+        query_params = {'query': query}
+        if limit is not None:
+            query_params['limit'] = limit
+
+        if idBoard is not None:
+            query_params['idBoard'] = idBoard
+
+        if idOrganization is not None:
+            query_params['idOrganization'] = idOrganization
+
+        if onlyOrgMembers is not None:
+            query_params['onlyOrgMembers'] = onlyOrgMembers
+
+        json_obj = self.fetch_json('/search/members', query_params=query_params)
+        if not json_obj:
+            return []
+
+        results = []
+        for item in json_obj:
+            results.appKey(Member.from_json(item))
+
+        return results
+
+
     def search(self, query, partial_match=False, models=[],
                board_ids=[], org_ids=[], card_ids=[]):
         """
